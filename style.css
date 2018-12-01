@@ -1,0 +1,39 @@
+/*idex.php*/
+
+h1{text-align: center;
+  margin: 120px 60px;}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+  align-content: space-around;
+}
+
+.item{
+  width:250px;
+  height:250px;
+  margin:25;
+  padding: 25;
+  text-align: center;
+  line-height: 250px;
+  border:solid;
+}
+/*detail.php*/
+.detail_container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  align-content: space-around;
+}
+
+.detail_item{
+  width:250px;
+  height:250px;
+  margin-left: 70;
+  margin-right: 70;
+  padding: 25;
+  text-align: center;
+  line-height: 250px;
+  border:solid;
+}
