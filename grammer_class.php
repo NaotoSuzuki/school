@@ -1,5 +1,5 @@
 <?php
-require_once("gere_class.php");
+require_once("genre_classc.php");
 class Grammer{
   private $grammerName;
   private $grammerValue;
