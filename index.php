@@ -22,6 +22,7 @@ ini_set('display_errors', 1);
 
         <div class="container">
           <?php foreach($grammers as $grammer):?>
+            <!--DBから持ってくるか配列を作るか・・・配列を作ろう-->
                 <div class="item">
                   <a href="grammer.php?name=<?php echo $grammer->getValue() ?>">
                     <?php echo $grammer->getName() ?>
