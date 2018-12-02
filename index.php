@@ -25,6 +25,7 @@ ini_set('display_errors', 1);
             <!--DBから持ってくるか配列を作るか・・・配列を作ろう-->
                 <div class="item">
                   <a href="grammer.php?name=<?php echo $grammer->getValue() ?>">
+                    <!--grammer_class_phpのリストを参考に連想配列を作り、keyとvalueをそれぞれechoさせる。他に方法あるだろうけど-->
                     <?php echo $grammer->getName() ?>
                   </a>
                 </div>
