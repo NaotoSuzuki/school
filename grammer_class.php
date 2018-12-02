@@ -8,6 +8,7 @@ class Grammer{
   public function __construct($grammerValue){
 
     $this->grammerValue=$grammerValue;
+    
     $grammerList=array(
       'beverb' => 'Be動詞' ,
       'verb'=>'一般動詞',

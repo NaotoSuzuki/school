@@ -21,7 +21,7 @@ ini_set('display_errors', 1);
         </header>
 
         <div class="container">
-          <?php foreach($grammers->getName() as $grammer):?>
+          <?php foreach($grammers as $grammer):?>
                 <div class="item">
                   <a href="grammer.php?name=<?php echo $grammer->getValue() ?>">
                     <?php echo $grammer->getName() ?>
