@@ -1,5 +1,5 @@
 <?php
-require_once("genre_class.php");
+require_once("grammer_class.php");
 // エラー表示なし
 ini_set('display_errors', 0);
 ini_set('display_errors', 1);
