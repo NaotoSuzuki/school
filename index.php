@@ -6,9 +6,10 @@ ini_set('display_errors', 1);
 
 class Index{
   private $grammer;
+  private $grammerValue;
 
   public function __construct($grammer,$grammerValue){
-    $this->grammers=$grammer;
+    $this->grammer=$grammer;
     $this->grammerValue=$grammerValue;
   }
 
@@ -20,24 +21,25 @@ class Index{
     return $this->grammerValue=$grammerValue;
   }
 
-  $beverb=new Index('Be動詞' );
-  $verb=new Index('一般動詞' );
-  $pronoun=new Index('代名詞' );
-  $thirdPerson=new Index('三人称単数' );
-  $can=new Index('Can' );
-
-  $grammers=array($beverb,$verb,$pronoun,$thirdPerson,$can);
-
-  $beverbValue=new Index('beverb' );
-  $verbValue=new Index('verb' );
-  $pronounValue=new Index('pronoun' );
-  $thirdPersonValue=new Index('thirdperson' );
-  $canValue=new Index('can' );
-
-  $grammerValues=array($beverbValue,$verbValue,$pronounValue,$thirdPersonValue,$canValue);
-
-
 }
+
+$beverb=new Index('Be動詞');
+$verb=new Index('一般動詞');
+$pronoun=new Index('代名詞');
+$thirdPerson=new Index('三人称単数');
+$can=new Index('Can');
+
+$grammers=array($beverb,$verb,$pronoun,$thirdPerson,$can);
+
+
+$beverbValue=new Index('beverb');
+$verbValue=new Index('verb');
+$pronounValue=new Index('pronoun');
+$thirdPersonValue=new Index('thirdperson');
+$canValue=new Index('can');
+
+$grammerValues=array($beverbValue,$verbValue,$pronounValue,$thirdPersonValue,$canValue);
+
 
 ?>
 
@@ -59,11 +61,11 @@ class Index{
           <?php foreach($grammerValues as $grammerValue):?>
             <!--DBから持ってくるか配列を作るか・・・配列を作ろう-->
                 <div class="item">
-                  <a href="grammer.php?name=<?php echo $grammerValue->getGrammerValue() ?>">
+                  <a href="grammer.php?name=<?php echo $grammerValue->getGrammerValue(); ?>">
           <?php endforeach?>
                     <!--grammer_class_phpのリストを参考に連想配列を作り、keyとvalueをそれぞれechoさせる。他に方法あるだろうけど-->
                   <?php foreach($grammers as $grammer):?>
-                    <?php echo $grammer->getGrammer() ?>
+                    <?php echo $grammer->getGrammer();?>
                   </a>
                 </div>
           <?php endforeach?>
