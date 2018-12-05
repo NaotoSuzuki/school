@@ -29,7 +29,7 @@ $pronoun=new Index('代名詞');
 $thirdPerson=new Index('三人称単数');
 $can=new Index('Can');
 
-$grammers=array($beverb,$verb,$pronoun,$thirdPerson,$can);
+
 
 
 $beverbValue=new Index('beverb');
@@ -38,7 +38,7 @@ $pronounValue=new Index('pronoun');
 $thirdPersonValue=new Index('thirdperson');
 $canValue=new Index('can');
 
-$grammerValues=array($beverbValue,$verbValue,$pronounValue,$thirdPersonValue,$canValue);
+$grammerIndicate=array($beverb=>"beverb",$verb=>"verb",$pronoun=>"pronoun",$thirdPerson,$can);
 
 
 ?>
@@ -65,9 +65,11 @@ $grammerValues=array($beverbValue,$verbValue,$pronounValue,$thirdPersonValue,$ca
           <?php endforeach?>
                     <!--grammer_class_phpのリストを参考に連想配列を作り、keyとvalueをそれぞれechoさせる。他に方法あるだろうけど-->
                   <?php foreach($grammers as $grammer):?>
-                    <?php echo $grammer->getGrammer();?>
+                    <?php var_dump($grammers)?>
+                    <p><?php echo $grammer->getGrammer();?></p>
                   </a>
                 </div>
+
           <?php endforeach?>
         </div>
 
