@@ -8,17 +8,17 @@ class Index{
   private $grammer;
   private $grammerValue;
 
-  public function __construct($grammer,$grammerValue){
+  public function construct($grammer,$grammerValue){
     $this->grammer=$grammer;
     $this->grammerValue=$grammerValue;
   }
 
   public function getGrammer(){
-    return $this->grammer=$grammer;
+    return $this->grammer;
   }
 
   public function getGrammerValue(){
-    return $this->grammerValue=$grammerValue;
+    return $this->grammerValue;
   }
 
 }
