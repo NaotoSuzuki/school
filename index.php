@@ -38,7 +38,7 @@ $pronounValue=new Index('pronoun');
 $thirdPersonValue=new Index('thirdperson');
 $canValue=new Index('can');
 
-$grammerIndicate=array($beverb=>"beverb",$verb=>"verb",$pronoun=>"pronoun",$thirdPerson,$can);
+$grammerIndicate=array($beverb=>"beverb",$verb=>"verb",$pronoun=>"pronoun",$thirdPerson=>"thirdperson",$can="can");
 
 
 ?>
@@ -58,19 +58,13 @@ $grammerIndicate=array($beverb=>"beverb",$verb=>"verb",$pronoun=>"pronoun",$thir
         </header>
 
         <div class="container">
-          <?php foreach($grammerValues as $grammerValue):?>
-            <!--DBから持ってくるか配列を作るか・・・配列を作ろう-->
+          <?php foreach($grammeerIndicate as $grammer=>$grammerValue):?>
                 <div class="item">
-                  <a href="grammer.php?name=<?php echo $grammerValue->getGrammerValue(); ?>">
-          <?php endforeach?>
-                    <!--grammer_class_phpのリストを参考に連想配列を作り、keyとvalueをそれぞれechoさせる。他に方法あるだろうけど-->
-                  <?php foreach($grammers as $grammer):?>
-                    <?php var_dump($grammers)?>
-                    <p><?php echo $grammer->getGrammer();?></p>
+                  <a href="grammer.php?name=<?php echo $grammerValue ?>">
+                    <p><?php echo $grammer ?></p>
                   </a>
                 </div>
-
-          <?php endforeach?>
+              <?php endforeach?>
         </div>
 
       </body>
