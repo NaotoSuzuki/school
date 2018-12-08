@@ -10,7 +10,7 @@ ini_set('display_errors', 1);
 // $pronounValue=new Index('pronoun');
 // $thirdPersonValue=new Index('thirdperson');
 // $canValue=new Index('can');
-
+  $grammerIndicate=array("be動詞"=>"beverb","単数形,複数形"=>"singular_plural","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
 ?>
 
 <HTMl>
@@ -29,7 +29,7 @@ ini_set('display_errors', 1);
 
         <div class="container">
           <?php
-          $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
+
           foreach($grammerIndicate as $grammer=>$grammerValue):?>
                 <div class="item">
                   <a href="grammer.php?name=<?php echo $grammerValue ?>">
