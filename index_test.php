@@ -30,10 +30,10 @@ ini_set('display_errors', 1);
         <div class="container">
           <?php
           $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
-          foreach($grammeerIndicate as $grammer=>$grammerValue):?>
+          foreach($grammerIndicate as $grammer=>$grammerValue):?>
                 <div class="item">
                   <a href="grammer.php?name=<?php echo $grammerValue ?>">
-                    <p><?php echo $grammer->getGrammer() ?></p>
+                    <p><?php echo $grammer ?></p>
                   </a>
                 </div>
               <?php endforeach?>
