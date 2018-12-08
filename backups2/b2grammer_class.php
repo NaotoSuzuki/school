@@ -1,6 +1,4 @@
 <?php
-//genre_phpはindexからrequireしてないけど変数同じだから値をうけとっていて、
-//それをここでも使ってるから、indexで値と文字列がひっくり返ってるせいですべてが狂っていた
 require_once("genre_class.php");
 
 class Grammer{
