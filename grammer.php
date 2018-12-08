@@ -1,5 +1,7 @@
 <?php
+
 require_once("grammer_class.php");
+
  $grammerName=$_GET['name'];
  $grammer=new Grammer($grammerName);
 ?>
@@ -16,7 +18,7 @@ require_once("grammer_class.php");
 
   <body>
     <header>
-    <h1><?php echo $grammer->getName();?></h1>
+    <h1><?php echo $grammerName;?></h1>
   </header>
 
 <div class="detail_container">
