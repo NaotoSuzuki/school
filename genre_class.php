@@ -1,5 +1,5 @@
 <?php
- require_once("genre_data.php");
+ require_once("genre_data.ph");
   class Genre{
   private $grammerName;
   private $grammerValue;

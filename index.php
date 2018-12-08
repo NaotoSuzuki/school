@@ -1,8 +1,10 @@
 <?php
-require_once("genre_class.php");
 // エラー表示なし
 ini_set('display_errors', 0);
 ini_set('display_errors', 1);
+
+$grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
+
 
 ?>
 
@@ -21,10 +23,10 @@ ini_set('display_errors', 1);
         </header>
 
         <div class="container">
-          <?php foreach($grammers as $grammer):?>
+          <?php foreach($grammerIndicate as $grammer=>$grammerValue):?>
                 <div class="item">
-                  <a href="grammer.php?name=<?php echo $grammer->getValue() ?>">
-                    <?php echo $grammer->getName() ?>
+                  <a href="grammer.php?name=<?php echo $grammer ?>">
+                    <?php echo $grammerValue?>
                   </a>
                 </div>
           <?php endforeach?>
