@@ -4,9 +4,9 @@
   private $grammerName;
   private $grammerValue;
 
-  public function __construct($grammer,$grammerValue){
+  public function __construct($grammerName,$grammerValue){
 
-    $this->grammerName=$grammer;
+    $this->grammerName=$grammerName;
     $this->grammerValue=$grammerValue;
 
   }

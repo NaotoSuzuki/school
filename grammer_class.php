@@ -1,5 +1,5 @@
 <?php
-
+require_once("genre_class.php");
 class Grammer{
   private $grammerName;
   private $grammerValue;
@@ -8,6 +8,7 @@ class Grammer{
   public function __construct($grammerValue){
 
     $this->grammerValue=$grammerValue;
+    
     $grammerList=array(
       'beverb' => 'Be動詞' ,
       'verb'=>'一般動詞',
