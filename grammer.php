@@ -1,5 +1,6 @@
 <?php
 
+
 require_once("grammer_class.php");
 
  $grammerName=$_GET['name'];

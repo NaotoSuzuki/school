@@ -1,4 +1,9 @@
-/*idex.php*/
+/*common*/
+.navigater{
+  text-align: right;
+}
+
+/*index.php*/
 
 h1{text-align: center;
   margin: 120px 60px;}
