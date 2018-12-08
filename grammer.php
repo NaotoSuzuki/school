@@ -28,7 +28,7 @@ require_once("grammer_class.php");
     <a href="question.php?name=<?php echo $grammer->getValue();?>">問題を解く</a>
   </div>
   <div class="detail_item">
-    <a href="explain/<?php echo $grammer->getValue();?>.html">解説を読む</a>
+    <a href="explain.php?name=<?php echo $grammer->getValue();?>">解説を読む</a>
   </div>
 </div>
   <div class="navigater"><a href="index.php">トップに戻る</a></div>
