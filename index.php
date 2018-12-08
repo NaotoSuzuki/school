@@ -1,5 +1,5 @@
 <?php
-require_once("grammer_class.php");
+// require_once("grammer_class.php");
 // エラー表示なし
 ini_set('display_errors', 0);
 ini_set('display_errors', 1);
@@ -8,18 +8,17 @@ class Index{
   private $grammer;
   private $grammerValue;
 
-  public function construct($grammer,$grammerValue){
+  public function construct($grammer){
     $this->grammer=$grammer;
-    $this->grammerValue=$grammerValue;
   }
 
   public function getGrammer(){
     return $this->grammer;
   }
 
-  public function getGrammerValue(){
-    return $this->grammerValue;
-  }
+  // public function getGrammerValue(){
+  //   return $this->grammerValue;
+  // }
 
 }
 
@@ -30,15 +29,15 @@ $thirdPerson=new Index('三人称単数');
 $can=new Index('Can');
 
 
-
-
-$beverbValue=new Index('beverb');
-$verbValue=new Index('verb');
-$pronounValue=new Index('pronoun');
-$thirdPersonValue=new Index('thirdperson');
-$canValue=new Index('can');
-
 $grammerIndicate=array($beverb=>"beverb",$verb=>"verb",$pronoun=>"pronoun",$thirdPerson=>"thirdperson",$can="can");
+
+// $beverbValue=new Index('beverb');
+// $verbValue=new Index('verb');
+// $pronounValue=new Index('pronoun');
+// $thirdPersonValue=new Index('thirdperson');
+// $canValue=new Index('can');
+
+
 
 
 ?>
@@ -61,7 +60,7 @@ $grammerIndicate=array($beverb=>"beverb",$verb=>"verb",$pronoun=>"pronoun",$thir
           <?php foreach($grammeerIndicate as $grammer=>$grammerValue):?>
                 <div class="item">
                   <a href="grammer.php?name=<?php echo $grammerValue ?>">
-                    <p><?php echo $grammer ?></p>
+                    <p><?php echo $grammer->getGrammer() ?></p>
                   </a>
                 </div>
               <?php endforeach?>
