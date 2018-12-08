@@ -1,8 +1,10 @@
 <?php
+require_once("genre_class.php");
 
 class Grammer{
   private $grammerName;
   private $grammerValue;
+
 
 
   public function __construct($grammerValue){
@@ -30,3 +32,5 @@ class Grammer{
   }
 
 }
+
+?>

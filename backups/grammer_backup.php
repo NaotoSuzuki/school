@@ -1,9 +1,11 @@
-
 <?php
+ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 require_once("grammer_class.php");
+
  $grammerName=$_GET['name'];
- $grammer=new Grammer($grammerName);
- $grammerValue=new Grammer($grammerValue);
+ $grammer=new Grammer($grammerValue);
+
 ?>
 
 
@@ -18,7 +20,7 @@ require_once("grammer_class.php");
 
   <body>
     <header>
-    <h1><?php echo $grammer->getName();?></h1>
+    <h1><?php echo $grammerName;?></h1>
   </header>
 
 <div class="detail_container">
@@ -29,7 +31,7 @@ require_once("grammer_class.php");
     <a href="explain/<?php echo $grammer->getValue();?>.html">解説を読む</a>
   </div>
 </div>
-  <a href="index.php">トップに戻る</a>
+  <div class="navigater"><a href="index.php">トップに戻る</a></div>
 
   </body>
 

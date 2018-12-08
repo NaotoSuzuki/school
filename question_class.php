@@ -1,7 +1,5 @@
 <?php
 
-
-/*ここのrequireにgetで文法ごとのphpファイルを読み込ませるんか？*/
 class Question{
   private $question;
 

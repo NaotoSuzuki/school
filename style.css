@@ -1,6 +1,7 @@
 /*common*/
 .navigater{
   text-align: right;
+  margin-right: 200px;
 }
 
 /*index.php*/
@@ -24,7 +25,8 @@ h1{text-align: center;
   line-height: 250px;
   border:solid;
 }
-/*detail.php*/
+
+/*grammer.php*/
 .detail_container{
   display: flex;
   flex-wrap: wrap;
