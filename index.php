@@ -10,7 +10,7 @@ ini_set('display_errors', 1);
 // $pronounValue=new Index('pronoun');
 // $thirdPersonValue=new Index('thirdperson');
 // $canValue=new Index('can');
-  $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
+  $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb");
 ?>
 
 <HTMl>

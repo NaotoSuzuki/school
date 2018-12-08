@@ -24,7 +24,7 @@ require_once("grammer_class.php");
     <a href="question.php?name=<?php echo $grammer->getValue();?>">問題を解く</a>
   <!--ここにquestion.phpに文法ごとに移れるリンクを貼る。問題もそれぞれ正しく表示されるようにする-->
   </div>
-  <div class="detail_item"><p>解説を読む</p></div>
+  <div class="detail_item"><a href="question.php?name=<?php echo $grammer->getValue();?>">解説を読む</a></div>
 </div>
 
 
