@@ -16,7 +16,7 @@ $questionclass = new Question($records);
  </head>
 
   <body>
-    <p>解説を読む</p>
+
     <?php  $i=1; foreach ($questionclass->getQuestion() as $question):$j=1;?>
       <div>
         <?php foreach ($question as $key=>$value):?>
@@ -33,7 +33,9 @@ $questionclass = new Question($records);
       </div>
     <?php endforeach ?>
 
-    <p>答え合わせをする</p>
+      <a href="explain.php?name=<?php echo $grammerName;?>">解説を読む</a>
+    <p>結果を見る</p>
+
 
   </body>
 

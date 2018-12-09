@@ -31,7 +31,7 @@ require_once("grammer_class.php");
     <a href="explain.php?name=<?php echo $grammer->getValue();?>">解説を読む</a>
   </div>
 </div>
-  <div class="navigater"><a href="index.php">トップに戻る</a></div>
+  <div class="navigater"><a href="index.php">文法一覧に戻る</a></div>
 
   </body>
 
