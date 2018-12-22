@@ -5,9 +5,6 @@ ini_set('display_errors', 1);
 
 $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
 //grammer_classのメソッドを使いたい。
-
-$a=$_POST["hoge"];
-
 ?>
 
 <HTMl>
