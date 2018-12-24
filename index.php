@@ -16,7 +16,7 @@ $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>
    </head>
 
    <body>
-        <p><?php echo $a ?></p>
+      
         <header>
         <h1>Welcome to Be.You</h1>
         </header>

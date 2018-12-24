@@ -49,11 +49,13 @@ if (isset($_POST["hoge"])){
           <?php endforeach ?>
         </div>
       <?php endforeach ?>
-      <input type="submit" />
+
+    <a href="answer.php?name=<?php echo $grammerName;?>">
+      <input type="submit" value="答え合わせをする" />
+    </a>
       <input type="hidden" name="hoge" value = "post"></input>
     </form>
     <a href="explain.php?name=<?php echo $grammerName;?>">解説を読む</a>
-    <p>結果を見る</p>
 
 
   </body>
