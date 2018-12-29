@@ -1,6 +1,6 @@
 <?php
 
-class mysqlClass{
+class mysqlAnswerClass{
 
   private $dbh;
   private $sql;
@@ -24,13 +24,19 @@ class mysqlClass{
     $this->dbh = null;
   }
 
-  public function getQuestionRecord($genre){
+
+  public function getAnswerRecord($genre){
     $this->sql = "SELECT question_table.question , answer_table.sentence_1, answer_table.sentence_2 , answer_table.sentence_3
-      FROM sentence_table inner join question_table
+      FROM answer_table inner join question_table
       on answer_table.question_type = question_table.type where answer_table.genre = \"$genre\"";
 
     return $this->getRecord();
+
   }
+  //ここからanswer.tableのデータを持ってくることを試みる
+  //成功したらanswer.phpに反映
+  //question.tableをgrammer_databaseの方にも作ってから、
+  //postでquestion.phpの回答内容を受け取った方が良い
 
 
 }

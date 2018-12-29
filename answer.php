@@ -1,60 +1,65 @@
 <?php
 ini_set('display_errors', 0);
 ini_set('display_errors', 1);
-require_once("question_class.php");
+//require_once("question_class.php");
+require_once("answer_class.php");
 require_once("pdo_class.php");
-$grammerName=$_GET['name'];
+$grammerName=$_POST['name'];
 $pdo = new mysqlClass();
-$records = $pdo->getQuestionRecord($grammerName);
-$questionclass = new Question($records);
-$postflg=false;
-if (isset($_POST["hoge"])){
 
-  $postflg=true;
-}
+$records = $pdo->getAnswerRecord($grammerName);
+$answerclass = new Answer($records);
+
+
 ?>
 
 <!--問題と答えをPDOで持ってきて、回答内容をquestion.phpから持ってくる -->
 
 <HTMl>
 
-  <head>
-    <meta charset="utf-8">
-    <title>Be.you</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
+    <head>
+        <meta charset="utf-8">
+        <title>Be.you</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <form action="" method="post">
+            <?php  $i=0; foreach ($answerclass->getAnswer() as $answer):$j=1;?>
+                <div>
+                    <!-- <?php var_dump($answer) ?> -->
+                    <?php foreach ($answer as $key=>$answerValue):?>
+                        <p><?php
+                        if ($key == "question"){
+                            $i++;
+                            echo "Q".$i." ".$answerValue ;
+                        } else {
+                            $sentence = "sentence_" . $j;
+                            // var_dump($key);
+                            if ($key == $sentence){
+                                echo "(".$j.")".$answerValue ;
+                                // echo "</br>";
+                                // var_dump("sentence");
+                            } else {
+                                echo $answerValue ;
+                                echo "</br>";
+                                echo '<p>', $_POST[strval($i).strval($j)] ,'</p>';
+                                $j++;
+                                // var_dump("answer");
+                            }
 
-  <body>
-    <form action="" method="post">
-      <?php  $i=1; foreach ($questionclass->getQuestion() as $question):$j=1;?>
-        <div>
-          <?php foreach ($question as $key=>$value):?>
-            <p><?php
-            if ($key == "question"){
-              echo "Q".$i." ".$value ;
-              $i++;
-            } else {
-              echo "(".$j.")".$value ;
-              $j++;
-              echo "</br>";
-              if ($postflg){
-                echo '<p>', $_POST[strval($i).strval($j)] ,'</p>';
-
-              } else {
-                echo '<input name="',strval($i),strval($j),'"></input>';
-              }
-            }
-            ?></p>
+                                // このコードをanswerDBに対応させる
+                        }
+                            ?></p>
+                            <?//php endforeach ?>
+                        <?php endforeach ?>
+                    </div>
+                    <?//php endforeach ?>
+                <?php endforeach ?>
+                <input type="hidden" name="name" value = "<?php echo $grammerName;?>"></input>
+            </form>
+            <a href="explain.php?name=<?php echo $grammerName;?>">解説を読む</a>
 
 
-          <?php endforeach ?>
-        </div>
-      <?php endforeach ?>
-      <input type="hidden" name="hoge" value = "post"></input>
-    </form>
-    <a href="explain.php?name=<?php echo $grammerName;?>">解説を読む</a>
+        </body>
 
-
-  </body>
-
-</HTMl>
+    </HTMl>
