@@ -27,10 +27,7 @@ if (isset($_POST["hoge"])){
         <form action="answer.php" method="post">
             <?php  $i=0; foreach ($questionclass->getQuestion() as $question):$j=0;?>
                 <!--getQuestionメソッドによってDBの大問、小問のデータを取得し、$questionに格納  -->
-                <?php  var_dump($questionclass);?>
-                <br>
-                <br>
-                <?php  var_dump($question);?>
+                
                 <div>
                     <?php foreach ($question as $key=>$value):?>
                         <!--$questionの$keyが"question"なら大問を、そうでないなら小問"sentense"を表示 -->
