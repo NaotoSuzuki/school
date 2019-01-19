@@ -27,11 +27,9 @@ if (isset($_POST["hoge"])){
         <form action="answer.php" method="post">
             <?php  $i=0; foreach ($questionclass->getQuestion() as $question):$j=0;?>
                 <!--getQuestionメソッドによってDBの大問、小問のデータを取得し、$questionに格納  -->
-                
+
                 <div>
                     <?php foreach ($question as $key=>$value):?>
-                        <!--$questionの$keyが"question"なら大問を、そうでないなら小問"sentense"を表示 -->
-                        <!--answer.phpの配列がうまく表示できないのは、if分の変数名とと配列の"$key"と"$value"の値が一致していないからではないか  -->
                         <p><?php
                         if ($key == "question"){
                             $i++;

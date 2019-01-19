@@ -24,15 +24,13 @@ class mysqlClass{
     $this->dbh = null;
   }
 
-//DBへの命令。
-//$genreの値はquesion.phpでGETされたものが引数で渡される。
+
   public function getQuestionRecord($genre){
     $this->sql = "SELECT question_table.question , sentence_table.sentence_1, sentence_table.sentence_2 , sentence_table.sentence_3
       FROM sentence_table inner join question_table
       on sentence_table.question_type = question_table.type where sentence_table.genre = \"$genre\"";
 
     return $this->getRecord();
-    //question.phpにて$getquestionclassに代入されている
   }
 
   public function getAnswerRecord($genre){
@@ -44,7 +42,7 @@ class mysqlClass{
     sentence_table.sentence_2 ,
     answer_table.sentence_2 as answer_2 ,
     sentence_table.sentence_3 ,
-    answer_table.sentence_3 as answer_3 
+    answer_table.sentence_3 as answer_3
     FROM question_table
     inner join sentence_table
     on question_table.type = sentence_table.question_type

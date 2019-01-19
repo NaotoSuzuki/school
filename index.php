@@ -16,10 +16,16 @@ $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>
    </head>
 
    <body>
-      
+
         <header>
-        <h1>Welcome to Be.You</h1>
+        <h1>"ユーザーさん"　Welcome to Be.You</h1>
         </header>
+
+        <div class="options">
+            <p>学習の進捗を確認する</p>
+            <p>成績を確認する</p><!-- 回答した問題の一覧を表示する studied_questions.php-->
+
+        </div>
 
         <div class="container">
           <?php foreach($grammerIndicate as $grammer=>$grammerValue):?>
