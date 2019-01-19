@@ -7,7 +7,7 @@ class mysqlClass{
   public function __construct(){
     $user = "test";
     $pass = "test";
-    $this->dbh =new PDO('mysql:host=localhost;dbname=grammer_questions;charset=utf8', $user, $pass);
+    $this->dbh =new PDO('mysql:host=localhost;dbname=beyou;charset=utf8', $user, $pass);
   }
 
   private function getRecord(){

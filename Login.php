@@ -4,9 +4,9 @@ require 'password.php';   // password_verfy()はphp 5.5.0以降の関数のた�
 session_start();
 
 $db['host'] = "localhost";  // DBサーバのURL
-$db['user'] = "hogeUser";  // ユーザー名
-$db['pass'] = "hogehoge";  // ユーザー名のパスワード
-$db['dbname'] = "loginManagement";  // データベース名
+$db['user'] = "test";  // ユーザー名
+$db['pass'] = "test";  // ユーザー名のパスワード
+$db['dbname'] = "beyou";  // データベース名
 
 // エラーメッセージの初期化
 $errorMessage = "";
@@ -22,7 +22,7 @@ if (isset($_POST["login"])) {
 
     if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
         // 入力したユーザIDを格納
-        $userid = $_POST["userid"];
+        $userid = (int)$_POST["userid"];
         //ユーザーIDはuserテーブルのidカラムと等しい。SgnUp.phpでユーザーにも共有されてる。
 
         // 2. ユーザIDとパスワードが入力されていたら認証する
@@ -32,27 +32,28 @@ if (isset($_POST["login"])) {
         try {
             $pdo = new PDO($dsn, $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 
-            $stmt = $pdo->prepare('SELECT * FROM userData WHERE name = ?');
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
             $stmt->execute(array($userid));
             //execute()で？に値をわたしてくれるよ。この場合はuseridを？に渡してくれる。
             $password = $_POST["password"];
 
-            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) //trueを返すとしよう
-                {
+            if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
                 if (password_verify($password, $row['password'])) {
                     session_regenerate_id(true);
                     //「session_regenerate_id — 現在のセッションIDを新しく生成したものと置き換える」。このセッションIDはいろいろ使いそう
 
                     // 入力したIDのユーザー名を取得
                     $id = $row['id'];
-                    $sql = "SELECT * FROM userData WHERE id = $id";  //入力したIDからユーザー名を取得
+                    $sql = "SELECT * FROM users WHERE id = $id";  //入力したIDからユーザー名を取得
 
                     $stmt = $pdo->query($sql);
+                    $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($stmt as $row) {
                         $row['name'];  // ユーザー名
                     }
                     $_SESSION["NAME"] = $row['name'];//セッション変数にユーザー名を代入
-                    header("Location: Main.php");  // メイン画面へ遷移
+                    header("Location: index.php");  // メイン画面へ遷移
                     exit();  // 処理終了
                 } else {
                     // 認証失敗
@@ -67,7 +68,7 @@ if (isset($_POST["login"])) {
             $errorMessage = 'データベースエラー';
             //$errorMessage = $sql;
             // $e->getMessage() でエラー内容を参照可能（デバッグ時のみ表示）
-            // echo $e->getMessage();
+            echo $e->getMessage();
         }
     }
 }
