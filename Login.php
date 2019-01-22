@@ -1,7 +1,8 @@
 <?php
+session_start();
 require 'password.php';   // password_verfy()はphp 5.5.0以降の関数のため、バージョンが古くて使えない場合に使用
 // セッション開始
-session_start();
+
 
 $db['host'] = "localhost";  // DBサーバのURL
 $db['user'] = "test";  // ユーザー名
@@ -22,7 +23,7 @@ if (isset($_POST["login"])) {
 
     if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
         // 入力したユーザIDを格納
-        $userid = (int)$_POST["userid"];
+        $userid = $_POST["userid"];
         //ユーザーIDはuserテーブルのidカラムと等しい。SgnUp.phpでユーザーにも共有されてる。
 
         // 2. ユーザIDとパスワードが入力されていたら認証する
@@ -48,13 +49,18 @@ if (isset($_POST["login"])) {
                     $sql = "SELECT * FROM users WHERE id = $id";  //入力したIDからユーザー名を取得
 
                     $stmt = $pdo->query($sql);
-                    $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($stmt as $row) {
+                        $row['id'];
                         $row['name'];  // ユーザー名
                     }
                     $_SESSION["NAME"] = $row['name'];//セッション変数にユーザー名を代入
+                    $_SESSION["ID"] = $row['id'];
+            
                     header("Location: index.php");  // メイン画面へ遷移
+
                     exit();  // 処理終了
+
                 } else {
                     // 認証失敗
                     $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
@@ -72,6 +78,7 @@ if (isset($_POST["login"])) {
         }
     }
 }
+
 ?>
 
 <!doctype html>

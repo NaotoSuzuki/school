@@ -25,6 +25,15 @@ class mysqlClass{
   }
 
 
+  public function setGenreName($genre_id){
+      $genre_num=0;
+      $genre_name=$this->sql="SELECT genres.genre from genres where genres.id== \"$genre_id\"";
+      if($genre_num == $genre_num){
+      return $this->setGenreName();
+    }
+  }//
+
+
   public function getQuestionRecord($genre){
     $this->sql = "SELECT question_table.question , sentence_table.sentence_1, sentence_table.sentence_2 , sentence_table.sentence_3
       FROM sentence_table inner join question_table

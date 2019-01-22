@@ -1,14 +1,25 @@
 <?php
+session_start();
 // エラー表示なし
 ini_set('display_errors', 1);
+require_once(pdo_class.php);
 
-session_start();
+$pdo=new mysqlClass();
+
+$genreName=$pdo->setGenreName($genre_id);
+
+
+
+// var_dump($_SESSION);
+// var_dump($_SESSION["NAME"]);
+
+
 
 // ログイン状態チェック
-if (!isset($_SESSION["NAME"])) {
-    header("Location: Logout.php");
-    exit;
-}
+// if (!isset($_SESSION["NAME"])) {
+//     header("Location: Logout.php");
+//     exit;
+// }
 
 $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
 //grammer_classのメソッドを使いたい。
@@ -25,16 +36,25 @@ $grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>
    <body>
 
         <header>
-        <h1>"ユーザーさん"　Welcome to Be.You</h1>
+        <h1><?php echo $_SESSION["NAME"]?>さん、Welcome to Be.You！</h1>
         </header>
 
         <div class="options">
             <p>学習の進捗を確認する</p>
             <p>成績を確認する</p><!-- 回答した問題の一覧を表示する studied_questions.php-->
+            <a href="Logout.php">ログアウト</a>
 
         </div>
 
         <div class="container">
+            <?php foreach($genre_num=1 $grammerIndicate as $grammer=>$grammerValue):?>
+                  <div class="item">
+                    <a href="grammer.php?name=<?php echo $grammerValue ?>">
+                      <?php echo $grammer?>
+                    </a>
+                  </div>
+            <?php endforeach?>
+
           <?php foreach($grammerIndicate as $grammer=>$grammerValue):?>
                 <div class="item">
                   <a href="grammer.php?name=<?php echo $grammerValue ?>">
