@@ -1,4 +1,6 @@
 <?php
+$a=1;
+var_dump($a);
 
 class mysqlClass{
 
@@ -24,13 +26,15 @@ class mysqlClass{
     $this->dbh = null;
   }
 
-
-  public function setGenreName($genre_id){
-      $genre_num=0;
-      $genre_name=$this->sql="SELECT genres.genre from genres where genres.id== \"$genre_id\"";
-      if($genre_num == $genre_num){
+  public function setGenreName(){
+      $genre_records=$this->sql="SELECT genres.id , genres.genre from genres";
       return $this->setGenreName();
-    }
+      var_dum($genre_records);
+  }//
+
+  public function getGenreName($genre_id){
+      $genre_name=$this->sql="SELECT genres.genre from genres where genres.id== \"$genre_id\"";
+      return $this->setGenreName();
   }//
 
 
