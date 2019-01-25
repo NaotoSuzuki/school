@@ -1,5 +1,5 @@
-
 <?php
+session_start();
 ini_set('display_errors', 0);
 ini_set('display_errors', 1);
 require_once("grammer_class.php");
@@ -20,6 +20,7 @@ require_once("grammer_class.php");
 
   <body>
     <header>
+        <?php echo $_SESSION["NAME"]?>
     <h1><?php echo $grammer->getName();?></h1>
   </header>
 

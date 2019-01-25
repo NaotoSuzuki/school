@@ -2,22 +2,12 @@
 session_start();
 // エラー表示なし
 ini_set('display_errors', 1);
-// require_once("pdo_class.php");
 
-// $pdo=new mysqlClass();
+if (!isset($_SESSION["NAME"])) {
+	header("Location: Logout.php");
+	exit;
+}
 
-// var_dump($_SESSION);
-// var_dump($_SESSION["NAME"]);
-//
-// if (!isset($_SESSION["NAME"])) {
-//     header("Location: Logout.php");
-//     exit;
-// }
-
-// $grammerIndicate=$pdo->setGenreName();
-// var_dump($grammerIndicate);
-
-$grammerIndicate=array("be動詞"=>"beverb","一般動詞"=>"verb","代名詞"=>"pronoun","三人称"=>"thirdperson","Can"=>"can");
 
 $sql = null;
 $res = null;
@@ -28,17 +18,10 @@ try {
 	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
 
 	// SQL作成
-	$sql = "SELECT * FROM genres";
-
+	$sql = "SELECT genres.id , genres.genre, genres.genre_value FROM  genres order by id";
 	// SQL実行
+
 	$res = $dbh->query($sql);
-
-	// 取得したデータを出力
-	foreach( $res as $value ) {
-
-        var_dump($value);
-		
-	}
 
 } catch(PDOException $e) {
 	echo $e->getMessage();
@@ -49,35 +32,34 @@ try {
 
 <HTMl>
 
-    <head>
-      <meta charset="utf-8">
-       <title>Be.you</title>
-       <link rel="stylesheet" type="text/css" href="style.css">
-   </head>
+	<head>
+		<meta charset="utf-8">
+		<title>Be.you</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
 
-   <body>
+	<body>
 
-        <header>
-        <h1><?php echo $_SESSION["NAME"]?>さん、Welcome to Be.You！</h1>
-        </header>
+		<header>
+			<h1><?php echo $_SESSION["NAME"]?>さん、Welcome to Be.You！</h1>
+		</header>
 
-        <div class="options">
-            <p>学習の進捗を確認する</p>
-            <p>成績を確認する</p><!-- 回答した問題の一覧を表示する studied_questions.php-->
-            <a href="Logout.php">ログアウト</a>
+		<div class="options">
+			<p>学習の進捗を確認する</p>
+			<p>成績を確認する</p>
+			<a href="Logout.php">ログアウト</a>
+		</div>
 
-        </div>
+		<div class="container">
+			<?php foreach($res as $values):?>
+				<?php $genres=[];?>
+					<div class="item">
+						<a href="grammer.php?name=<?php  echo $genres=$values['genre_value']; ?>">
+							<?php  echo $genres=$values['genre']; ?>
+						</a>
+					</div>
+			<?php endforeach?>
+		</div>
 
-        <div class="container">
-
-          <?php foreach($grammerIndicate as $grammer=>$grammerValue):?>
-                <div class="item">
-                  <a href="grammer.php?name=<?php echo $grammerValue ?>">
-                    <?php echo $grammer?>
-                  </a>
-                </div>
-          <?php endforeach?>
-        </div>
-
-      </body>
+	</body>
 </HTMl>
