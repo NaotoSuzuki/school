@@ -2,29 +2,11 @@
 session_start();
 ini_set('display_errors', 0);
 ini_set('display_errors', 1);
-
+require_once("grammer_class.php");
+ $grammerName=$_GET['name'];
+ $grammer=new Grammer($grammerName);
  // $grammerValue=new Grammer($grammerValue);
 
- $sql = null;
- $res = null;
- $dbh = null;
-
- try {
- 	// DBへ接続
- 	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
-
- 	// SQL作成
- 	$sql = "SELECT genres.id , genres.genre, genres.genre_value FROM  genres order by id";
- 	// SQL実行
-
- 	$res = $dbh->query($sql);
-
- } catch(PDOException $e) {
- 	echo $e->getMessage();
- 	die();
- }
-
- 
 ?>
 
 
@@ -39,7 +21,7 @@ ini_set('display_errors', 1);
 
   <body>
     <header>
-        <?php echo $_SESSION["NAME"]?>
+
     <h1><?php echo $grammer->getName();?></h1>
   </header>
 
