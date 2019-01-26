@@ -53,8 +53,7 @@ $genre_param = $_GET['name'];
                 <?php endif ?>
             <?php endforeach ?>
         </header>
-        <br>
-        <br>
+    
 
 
 
