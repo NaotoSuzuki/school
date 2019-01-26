@@ -21,15 +21,12 @@ $genre_param = $_GET['name'];
         // SQL実行
 
         $res = $dbh->query($sql);
-
+        $records = $res->fetchAll(PDO::FETCH_ASSOC);
 
     } catch(PDOException $e) {
         echo $e->getMessage();
         die();
     }
-
-    $records = $res->fetchAll(PDO::FETCH_ASSOC);
-
     $genres=array_column($records, 'genre','genre_value');
 ?>
 
@@ -45,15 +42,9 @@ $genre_param = $_GET['name'];
 
     <body>
         <header>
-            <?php foreach ($genres as $key => $value): ?>
-
-                <?php if($key == $genre_param): ?>
-                <h1><?php echo $value?></h1>
-                    <?php break; ?>>
-                <?php endif ?>
-            <?php endforeach ?>
+        s
         </header>
-    
+
 
 
 

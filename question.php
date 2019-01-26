@@ -1,39 +1,32 @@
 <?php
 session_start();
-// echo $_SESSION["NAME"];
-// require_once("question_class.php");
-// require_once("pdo_class.php");
-// $grammerName=$_GET['name'];
-// $pdo = new mysqlClass();
-// $records = $pdo->getQuestionRecord($grammerName);
-// //各文法の大問題と少問題がDBより取得されたものを$recordsに代入
-// $questionclass = new Question($records);
-//DBから取得されたデータに対してQuestionクラスのメソッドを使えるようにする
+$genre_param = $_GET['name'];
+
 
 $sql = null;
 $res = null;
 $dbh = null;
+
 
 try {
 	// DBへ接続
 	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
 
 	// SQL作成
-	$sql = "SELECT genres.id , genres.genre, genres.genre_value FROM  genres order by id";
+	$sql = "SELECT genres.genre_value, big_questions.id as bigID , big_questions.question as bigQuestion, small_questions.question as smallQuestion FROM big_questions INNER JOIN small_questions ON big_questions.id = small_questions.big_questions_id INNER JOIN genres ON small_questions.genre_value = genres.genre_value order by bigID;";
 	// SQL実行
-
 	$res = $dbh->query($sql);
+	$records = $res->fetchAll(PDO::FETCH_ASSOC);
 
 } catch(PDOException $e) {
 	echo $e->getMessage();
 	die();
 }
 
-$postflg=false;
-if (isset($_POST["hoge"])){
+$questions=array_column($records, 'smallQuestion','bigQuestion');
 
-    $postflg=true;
-}
+
+
 ?>
 
 <HTMl>
@@ -45,40 +38,32 @@ if (isset($_POST["hoge"])){
     </head>
 
     <body>
+		<br>
+		<br>
+		<br>
+
+		<?php foreach ($records as $question_arrays): ?>
+			<?php var_dump($question_arrays); ?>
+			<br>
+			<br>
+
+				<?php foreach ($question_arrays as $question_array): ?>
+					<?php var_dump($question_array); ?>
+					<br>
+					<br>
+
+				<?php endforeach ?>
+
+		<?php endforeach ?>
+
         <form action="answer.php" method="post">
 
-            <?php  $i=0; foreach ($questionclass->getQuestion() as $question):$j=0;?>
-                <!--getQuestionメソッドによってDBの大問、小問のデータを取得し、$questionに格納  -->
 
-                <div>
-                    <?php echo $_SESSION["ID"] ?>
-                    <?php foreach ($question as $key=>$value):?>
-                        <p><?php
-                        if ($key == "question"){
-                            $i++;
-                            echo "Q".$i." ".$value ;
-                        } else {
-                            $j++;
-                            echo "(".$j.")".$value ;
-                            echo "</br>";
-                            if ($postflg){
-                                echo '<p>', $_POST[strval($i).strval($j)] ,'</p>';
-
-                            } else {
-                                echo '<input name="',strval($i),strval($j),'"></input>';
-                            }
-                        }
-                        ?></p>
-
-
-                    <?php endforeach ?>
-                </div>
-            <?php endforeach ?>
 
                 <input type="submit" value="答え合わせをする" />
-                <input type="hidden" name="name" value = "<?php echo $grammerName;?>"/>
+                <input type="hidden" name="name" value = "<?php echo $genre_param;?>"/>
             </form>
-            <a href="explain.php?name=<?php echo $grammerName;?>">解説を読む</a>
+            <a href="explain.php?name=<?php echo $genre_param;?>">解説を読む</a>
 
 
         </body>
