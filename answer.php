@@ -1,28 +1,9 @@
 <?php
 session_start();
+
 $genre_param = $_GET['name'];
 ini_set(‘display_errors’, 1);
 $answer_records=$_POST;
-
-print_r($answer_records);
-echo "<br/>";
-echo "<br/>";
-var_dump($_POST["result"]);
-echo "<br/>";
-echo "<br/>";
-foreach ($answer_records as $key=>$value) {
-
-    $answer_detect="question_num_".$value;
-    if($answer_detect==$key){
-        $answer_detect = $value;
-    } else{
-        $user_answer=$value;
-    }
-
-}
-
-
-
 
 $sql = null;
 $res = null;
@@ -30,28 +11,26 @@ $dbh = null;
 
 
 try {
-	// DBへ接続
-	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
+    // DBへ接続
+    $dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
 
-	// SQL作成
-	$sql = "SELECT genres.genre_value, big_questions.id as bigID, big_questions.question as bigQuestion, small_questions.question_num ,small_questions.question as smallQuestion, small_questions.answer as answer FROM big_questions INNER JOIN small_questions ON big_questions.id = small_questions.big_questions_id INNER JOIN genres ON small_questions.genre_value = genres.genre_value order by bigID asc, question_num asc;";
-	// SQL実行
-	$res = $dbh->query($sql);
-	$records = $res->fetchAll(PDO::FETCH_ASSOC);
+    $sql = "SELECT * FROM big_questions;";
+    $res = $dbh->query($sql);
+    $big_records = $res->fetchAll(PDO::FETCH_ASSOC);
 
+    $newsql = $dbh->prepare("SELECT big_questions_id, question_num, question, answer FROM small_questions where genre_value = :genre_value order by big_questions_id asc, question_num asc");
 
-	$big_pares =array_column($records, "bigQuestion","bigID");
-
-
-
-	$small_pares = array_column($records,"smallQuestion");
-	// var_dump($small_pares);
-
+    $newsql ->bindparam(':genre_value', $genre_param);
+    $newsql ->execute();
+    $small_records = $newsql->fetchAll(PDO::FETCH_ASSOC);
 
 } catch(PDOException $e) {
-	echo $e->getMessage();
-	die();
+    echo $e->getMessage();
+    die();
 }
+
+
+print_r($answer);
 
 
     if(isset($_POST["save"])){
@@ -107,60 +86,36 @@ try {
 
         <form action="" name="save" method="post">
 
-		<?php $bigQ_flag = 1 ?>
-		<!-- フラグと大問idが一致すれば、その大問に属する小問題を全て展開し、小問題を全て展開し終わったら次の配列に進むって感じにする -->
 
-		<?php foreach ($records as $question_arrays): ?>
-
+        <?php foreach ($big_records as $big_value):?>
+            <?php echo  $big_value[id].$big_value[question] ?>
             <br>
             <br>
-
-			<?php if($genre_param == $question_arrays['genre_value']): ?>
-				<?php $bigQ_flag = $question_arrays['bigID']?>
-
-				<?php foreach ($big_pares as $bigID => $bigQuestion): ?>
-					<?php if($bigQ_flag == $bigID): ?>
-						<?php echo "Q".$bigID.".". $bigQuestion ?>
-					<?php endif ?>
+                <?php foreach($small_records as $small_value): ?>
 
 
-				<?php foreach($records as $smalls): ?>
-                    <?php if($bigQ_flag==$smalls['bigID']): ?>
-						<br>
-						<br>
-						<?php echo "(".$smalls['question_num'].")".$smalls['smallQuestion']."<br/>"."答え：".$smalls['answer'] ?>
+                    <?php if($big_value[id]==$small_value[big_questions_id]): ?>
+                        <?php echo  $small_value[question_num].$small_value[question] ?>
                         <br>
+                        <?php echo "答え:".$small_value[answer]?>
+                        <br>
+                        <?php $big_num=$big_value[id] ?>
+                        <?php $small_num=$small_value[question_num] ?>
 
-                        <?php $a=0;
-                        $user_answers=$_POST["user_answer"];
+                        <?php echo"あなたの答え: ".$answer_records["small_answers"][$big_num][$small_num] ?>
 
-                        echo "あなたの回答:".$user_answer[$a];
-                        $a++;?>
+                        <br>
+                    <?php endif ?>
+                <?php endforeach ?>
+                <br>
+                <br>
+        <?php endforeach ?>
 
-
-
-                        <br/>
-                        <input type="checkbox" name="result[]" value="0">正解<br/>
-                        <input type="checkbox" name="result[]" value="1">不正解<br/>
-					<?php  endif ?>
-
-
-				<?php  endforeach ?>
-
-				<?php $bigQ_flag++ ?>
-				<br>
-				<br>
-
-			<?php endforeach ?>
-			<?php break ?>
-			<?php endif ?>
-
-		<?php endforeach ?>
 
 
 
 			<input type="submit" value="結果を保存する(復習の参考にできます！)" />
-			<input type="hidden" name="name" value = "<?php echo $genre_param;?>"/>
+			<input type="hidden" name="genre" value = "<?php echo $genre_param;?>"/>
 
 		</form>
 
