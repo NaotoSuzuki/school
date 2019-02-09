@@ -2,7 +2,26 @@
 session_start();
 $genre_param = $_GET['name'];
 ini_set(‘display_errors’, 1);
-var_dump($_POST);
+$answer_records=$_POST;
+
+print_r($answer_records);
+echo "<br/>";
+echo "<br/>";
+var_dump($_POST["result"]);
+echo "<br/>";
+echo "<br/>";
+foreach ($answer_records as $key=>$value) {
+
+    $answer_detect="question_num_".$value;
+    if($answer_detect==$key){
+        $answer_detect = $value;
+    } else{
+        $user_answer=$value;
+    }
+
+}
+
+
 
 
 $sql = null;
@@ -35,6 +54,45 @@ try {
 }
 
 
+    if(isset($_POST["save"])){
+
+    try {
+    	// DBへ接続
+    	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
+
+
+    	// SQL作成
+        $stmt = $pdo->prepare("INSERT INTO users_answer(user_id, genre_value, big_questions_id ,question_num ,user_answer, result, created) VALUES (:user_id, :genre_value, :big_questions_id ,:question_num ,:user_answer, :result ,now() )");
+    	// SQL実行
+
+
+        $user_id=$_SESSION["ID"];
+        $genre_value = $genre_param;
+
+        $stmt->bindParam(":user_id", $user_id);
+        $stmt->bindParam(":genre_value", $genre_value);
+
+        //以下のデータは$_POSTによって配列で渡ってきている
+        $stmt->bindParam(":big_questions_id", $bigID);
+        $stmt->bindParam(":question_num", $smalls["question_num"]);
+        $stmt->bindParam(":user_answer", $user_answer);
+        $stmt->execute();
+
+
+        //update table users_answer result
+        // $stmt->bindParam(":result", $result);
+        // $stmt->execute();
+
+
+
+    } catch(PDOException $e) {
+    	echo $e->getMessage();
+    	die();
+    }
+
+}
+
+
 ?>
 
 <HTMl>
@@ -47,7 +105,7 @@ try {
 
 	<body>
 
-        <form action="" method="post">
+        <form action="" name="save" method="post">
 
 		<?php $bigQ_flag = 1 ?>
 		<!-- フラグと大問idが一致すれば、その大問に属する小問題を全て展開し、小問題を全て展開し終わったら次の配列に進むって感じにする -->
@@ -72,11 +130,18 @@ try {
 						<br>
 						<?php echo "(".$smalls['question_num'].")".$smalls['smallQuestion']."<br/>"."答え：".$smalls['answer'] ?>
                         <br>
-                        <?php echo "あなたの回答:".$_POST["user_answer_".$smalls['bigID'].$smalls['question_num']]?>
+
+                        <?php $a=0;
+                        $user_answers=$_POST["user_answer"];
+
+                        echo "あなたの回答:".$user_answer[$a];
+                        $a++;?>
+
+
 
                         <br/>
-                        <input type="checkbox" name="result" value="0">正解<br/>
-                        <input type="checkbox" name="result" value="1">不正解<br/>
+                        <input type="checkbox" name="result[]" value="0">正解<br/>
+                        <input type="checkbox" name="result[]" value="1">不正解<br/>
 					<?php  endif ?>
 
 
@@ -91,11 +156,6 @@ try {
 			<?php endif ?>
 
 		<?php endforeach ?>
-
-
-
-
-
 
 
 

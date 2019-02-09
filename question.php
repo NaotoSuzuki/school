@@ -1,8 +1,8 @@
 <?php
 session_start();
 ini_set(‘display_errors’, 1);
-echo $_SESSION['ID'];
 $genre_param = $_GET['name'];
+
 
 
 $sql = null;
@@ -17,23 +17,37 @@ try {
 	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
 
 	// SQL作成
-	$sql = "SELECT genres.genre_value, big_questions.id as bigID , big_questions.question as bigQuestion, small_questions.question_num ,small_questions.question as smallQuestion FROM big_questions INNER JOIN small_questions ON big_questions.id = small_questions.big_questions_id INNER JOIN genres ON small_questions.genre_value = genres.genre_value order by bigID asc, question_num asc;";
+	$sql = "SELECT * FROM big_questions;";
 	// SQL実行
 	$res = $dbh->query($sql);
-	$records = $res->fetchAll(PDO::FETCH_ASSOC);
-
-	$big_pares =array_column($records, "bigQuestion","bigID");
+	$big_records = $res->fetchAll(PDO::FETCH_ASSOC);
 
 
+	print_r($big_records);
+	echo "</br>";
+	echo "</br>";
 
-	$small_pares = array_column($records,"smallQuestion");
-	// var_dump($small_pares);
 
+	// SQL作成
+	// SQL実行
+	$newsql = $dbh->prepare("SELECT big_questions_id, question_num, question FROM small_questions where genre_value = :genre_value order by big_questions_id asc, question_num asc");
+	$newsql ->bindparam(':genre_value', $genre_param);
+	$newsql ->execute();
+
+	$small_records = $newsql->fetchAll(PDO::FETCH_ASSOC);
+	print_r($small_records);
+
+
+	echo "</br>";
+	echo "</br>";
+	echo "</br>";
 
 } catch(PDOException $e) {
 	echo $e->getMessage();
 	die();
 }
+
+// $indicates=array();
 
 
 ?>
@@ -47,10 +61,38 @@ try {
 	</head>
 
 	<body>
+		<?php foreach ($big_records as $big_value):?>
+			<?php echo  $big_value[id].$big_value[question] ?>
+			<br>
+			<br>
+				<?php foreach($small_records as $small_value): ?>
+					<?php if($big_value[id]==$small_value[big_questions_id]): ?>
+						<?php echo  $small_value[question_num].$small_value[question] ?>
+						<br>
+					<?php endif ?>
+				<?php endforeach ?>
+				<br>
+				<br>
+
+		<?php endforeach ?>
+
+
+
+		<?php foreach($big_pares as $bigNum => $bigValue) :?>
+			<br>
+			<?php echo $bigNum.$bigValue ?>
+			<br>
+		<?php endforeach ?>
+
+
+
 		<form action="answer.php?name=<?php echo $genre_param ?>" method="post">
 
 		<?php $bigQ_flag = 1 ?>
 		<!-- フラグと大問idが一致すれば、その大問に属する小問題を全て展開し、小問題を全て展開し終わったら次の配列に進むって感じにする -->
+
+
+
 
 		<?php foreach ($records as $question_arrays): ?>
 			<?php if($genre_param == $question_arrays['genre_value']): ?>
@@ -59,7 +101,10 @@ try {
 				<?php foreach ($big_pares as $bigID => $bigQuestion): ?>
 					<?php if($bigQ_flag == $bigID): ?>
 						<?php echo "Q".$bigID.".". $bigQuestion ?>
+
 					<?php endif ?>
+
+
 
 
 				<?php foreach($records as $smalls): ?>
@@ -67,7 +112,10 @@ try {
 						<br>
 						<br>
 						<?php echo "(".$smalls['question_num'].")".$smalls['smallQuestion'] ?><br>
-						<input type="text" name="user_answer.<?php echo $smalls['bigID'].$smalls['question_num'] ?>"></input>
+						<input type="hidden" name="answer_records[$bigQ_flag][big_questions_id]" value="<?php echo $smalls['bigID'] ?>">
+						<input type="hidden" name="answer_records[$bigQ_flag][question_num]" value="<?php echo $smalls['question_num'] ?>">
+						<input type="text" name="answer_records[$bigQ_flag][user_answer]"></input>
+						<!-- この配列のインデックスを$bigQ_flagと同調させたいんだが。擦ればいい感じでanswerにpostでデータが渡る-->
 
 
 					<?php  endif ?>

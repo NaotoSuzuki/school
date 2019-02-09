@@ -13,6 +13,8 @@ $db['dbname'] = "beyou";  // データベース名
 $errorMessage = "";
 $signUpMessage = "";
 
+
+
 // サインアップボタンが押された場合
 if (isset($_POST["signUp"])) {
     // 1. ユーザIDの入力チェック

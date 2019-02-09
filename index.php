@@ -63,6 +63,7 @@ try {
 
 			<?php foreach($res as $values):?>
 				<?php $genre=[];?>
+                <!-- ↑必要ない -->
 				<br>
 				<br>
 

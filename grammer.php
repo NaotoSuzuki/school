@@ -42,12 +42,12 @@ $genre_param = $_GET['name'];
 
     <body>
         <header>
-        s
+
         </header>
 
 
 
-
+        
     <?php foreach ($genres as $key => $value): ?>
 
         <?php if($key == $genre_param): ?>
