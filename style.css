@@ -44,3 +44,9 @@ h1{text-align: center;
   line-height: 250px;
   border:solid;
 }
+.answer div{
+    height: 130px;
+}
+.answer p{
+    margin: 0px;
+}
