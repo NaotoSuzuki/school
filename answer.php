@@ -5,10 +5,10 @@ $small_answers=$_POST["small_answers"];
 
 
 $genre_param = $_GET['name'];
+var_dump($_SESSION["ID"]);
 
 $user_id=$_SESSION["ID"];
 
-print_r($_POST);
 
 ini_set(‘display_errors’);
 echo "<br>";
@@ -49,26 +49,20 @@ try {
 
 
     foreach($small_records as $record_value){
-            $big_que=$record_value["big_questions_id"];
-            $big_q=$record_value["big_question"];
-            $small_q=$record_value["question"];
-            $small_a=$record_value["answer"];
-            $questions1[$big_que]=["big_question"=>$big_q];
-            $questions2[$big_que][]="$small_q";
-            $answers[$big_que][]="$small_a";
+        $big_que=$record_value["big_questions_id"];
+        $big_q=$record_value["big_question"];
+        $small_q=$record_value["question"];
+        $small_a=$record_value["answer"];
+        $questions1[$big_que]=["big_question"=>$big_q];
+        $questions2[$big_que][]="$small_q";
+        $answers[$big_que][]="$small_a";
     }
 
-    //大問と小問と答えの配列を作っている各foreachは一つにまとめておく
-
-
     for($i=1; $i<=3; $i++ ){
-
         $questions[$i]=$questions1[$i];
         $questions[$i]["questions"]=$questions2[$i];
         $questions[$i]["answers"]=$answers[$i];
 
-        echo "<br>";
-        echo "<br>";
     }
 
 
@@ -86,12 +80,8 @@ try {
 
 
     if (isset($_POST["save"])) {
+        var_dump($user_id);
 
-        echo "<br>";
-        echo "<br>";
-        print_r($_POST);
-        echo "<br>";
-        echo "<br>";
 
         $results=$_POST["result"];
         $user_answer_array = $_POST["user_answer"];
@@ -99,19 +89,13 @@ try {
         foreach ($big_records as $big_value){
             foreach($small_records as $small_value){
                 if($big_value[id]==$small_value[big_questions_id]){
-                    print_r($small_value);
-
-
-                        $big_num=$big_value[id] ;
+                    $big_num=$big_value[id] ;
                         $small_num=$small_value[question_num];
                         // $small=$small_answers[$big_num][$small_num];
                         $small = $user_answer_array[$big_num][$small_num];
                         $result=$results[$big_num][$small_num];
                         $answer_datas[]=["user_id"=>$user_id, "genre_value"=>$genre_param, "big_questions_id"=>$big_num,"question_num"=>$small_num, "user_answer"=>$small ,"result"=>$result];
 
-                        print_r($big_datas);
-                        echo "<br>";
-                        echo "<br>";
                 }
             }
         }
@@ -129,8 +113,7 @@ try {
             $user_answer=$answer_data["user_answer"];
             $result=$answer_data["result"];
 
-            // $user_id=$_SESSION["ID"];
-            // $genre_value = $genre_param;
+            $user_id=$_SESSION["ID"];
 
             $stmt->bindParam(":user_id", $user_id);
             $stmt->bindParam(":genre_value", $genre_param);
@@ -150,9 +133,6 @@ try {
         echo "結果を保存しました！";
 }
 
-
-
-
 ?>
 
 <HTMl>
@@ -164,66 +144,25 @@ try {
 	</head>
 
 	<body>
-<pre>
-    <?php var_dump($small_records); ?>
-    <br>
-    <br>
-    <?php var_dump($questions1); ?>
-    <br>
-    <br>
-    <?php var_dump($questions2); ?>
-    <br>
-    <br>
-    <?php var_dump($answers);?>
 
-    <br>
-    <br>
-    <?php var_dump($record_value); ?>
-    <br>
-    <br>
-    <?php var_dump($questions); ?>
-    <br>
-    <br>
-
-
-
-
-
-
-</pre>
         <form action="" name="" method="post">
-
-
-
-        <?php foreach ($big_records as $big_value):?>
-            <div class="answer">
-                <p><?php echo  $big_value[id].$big_value[question] ?></p>
-                <?php foreach($small_records as $small_value): ?>
-                    <?php var_dump($small_value); ?>
-                    <br>
-                    <br>
-                    <div>
-                    <?php if($big_value[id]==$small_value[big_questions_id]): ?>
-                        <?php $big_num=$big_value[id] ?>
-                        <?php $small_num=$small_value[question_num] ?>
-                        <?php $small_answer= $small_answers[$big_num][$small_num]?>
-                        <?php $roop_answers[]=["big_questions_id"=>$big_num, "question_num"=>$small_num,"user_answer"=>$small_answer] ?>
-                        <p ><?php echo  $small_value[question_num].$small_value[question] ?></p>
-                        <p><?php echo "答え:".$small_value[answer]?></p>
-                        <p ><?php echo"あなたの答え: ".$small_answers[$big_num][$small_num] ?></p>
-                        <input type="hidden" name="user_answer[<?php echo $big_num ?>][<?php echo $small_num ?>]" value="<?php echo $small_answers[$big_num][$small_num] ?>">
-                        <input type="checkbox" name="result[<?php echo $big_num ?>][<?php echo $small_num ?>]" value="1">正解した！</input><br>
-                        <input type="checkbox" name="result[<?php echo $big_num?>][<?php echo $small_num ?>]" value="0">間違えた！</input>
-                    <?php endif ?>
-                </div>
-                <?php endforeach ?>
-            </div>
-        <?php endforeach ?>
-
-
-
-
-			<input type="submit" name="save" value="結果を保存する(復習の参考にできます！)" />
+            <?php foreach($questions as $key => $bigQ_record) :?>
+                <?php $count=count($bigQ_record["questions"]) ?>
+                <?php $trueCount=$count-1 ?>
+                <?php echo $key.$bigQ_record["big_question"] ?><br>
+                    <?php for($i=0; $i<=$trueCount; $i++) :?>
+                        <?php $num=$i+1 ?>
+                        <?php $user_answer = $num.$bigQ_record["questions"][$i] ?>
+                        <?php $roop_answers[]=["big_questions_id"=>$key, "question_num"=>$num,"user_answer"=> $user_answer]?>
+                        <?php echo $num.$bigQ_record["questions"][$i] ?><br>
+                        <?php echo $num.$bigQ_record["answers"][$i] ?>
+                        <p><?php echo"あなたの答え: ".$small_answers[$key][$num] ?></p>
+                        <input type="hidden" name="user_answer[<?php echo $key ?>][<?php echo $num ?>]" value="<?php echo $small_answers[$key][$num] ?>">
+                        <input type="checkbox" name="result[<?php echo $key ?>][<?php echo $num ?>]" value="1">正解した！</input><br>
+                        <input type="checkbox" name="result[<?php echo $key?>][<?php echo $num ?>]" value="0">間違えた！</input><br>
+                    <?php endfor ?>
+            <?php endforeach ?>
+            <input type="submit" name="save" value="結果を保存する(復習の参考にできます！)" />
 			<input type="hidden" name="genre" value = "<?php echo $genre_param;?>"/>
             <input type="hidden" name="small_answers" value="<?php $roop_answers?>"/>
 

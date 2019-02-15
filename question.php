@@ -70,7 +70,7 @@
 			<?php endforeach ?>
 
 
-			<input type="submit"  value="答え合わせをする" />
+			<input type="submit" name="" value="答え合わせをする" />
 
 		</form>
 		<a href="explain.php?name=<?php echo $genre_param;?>">解説を読む</a>
