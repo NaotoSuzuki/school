@@ -48,26 +48,16 @@ try {
     $small_records = $newsql->fetchAll(PDO::FETCH_ASSOC);
 
 
-
     foreach($small_records as $record_value){
+            $big_que=$record_value["big_questions_id"];
             $big_q=$record_value["big_question"];
             $small_q=$record_value["question"];
-            $big_que=$record_value["big_questions_id"];
-            $questions1[$big_que]=["big_question"=>$big_q];
-
-        }
-
-    foreach($small_records as $record_value){
-            $small_q=$record_value["question"];
-            $big_q=$record_value["big_questions_id"];
-            $questions2[$big_q][]="$small_q";
-    }
-
-    foreach($small_records as $record_value){
             $small_a=$record_value["answer"];
-            $big_q=$record_value["big_questions_id"];
-            $answers[$big_q][]="$small_a";
+            $questions1[$big_que]=["big_question"=>$big_q];
+            $questions2[$big_que][]="$small_q";
+            $answers[$big_que][]="$small_a";
     }
+
     //大問と小問と答えの配列を作っている各foreachは一つにまとめておく
 
 
