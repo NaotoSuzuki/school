@@ -1,35 +1,48 @@
 <?php
+	require_once("pdo_class.php");
 	session_start();
 	ini_set(‘display_errors’, 1);
 	$genre_param = $_GET['name'];
 
+$dbh = new PdoClass();
+try {
+	$big_sql = "SELECT * FROM big_questions";
+	$big_bind_array = [];
+	$big_records=$dbh->getRecord($big_sql,$big_bind_array);
+	// var_dump($big_records);
+} catch (Exception $e) {
+	echo "big:".$e->getMessage();
+}
 
+try {
+	$small_sql = "SELECT big_questions_id, question_num, question FROM small_questions where genre_value = :genre_value order by big_questions_id asc, question_num asc";
+	$small_bind_array = array('genre_value' => $genre_param);
+	$small_records = $dbh->getRecord($small_sql,$small_bind_array);
+	// var_dump($small_records);
+} catch (Exception $e) {
+	echo "small:".$e->getMessage();
+}
+$dbh->closePDO;
+	//small_questionsテーブルを持ってきてるやつ
 
-	$sql = null;
-	$res = null;
-	$dbh = null;
-
-
-
-
-	try {
-		// DBへ接続
-		$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
-
-		$sql = "SELECT * FROM big_questions;";
-		$res = $dbh->query($sql);
-		$big_records = $res->fetchAll(PDO::FETCH_ASSOC);
-
-		$newsql = $dbh->prepare("SELECT big_questions_id, question_num, question FROM small_questions where genre_value = :genre_value order by big_questions_id asc, question_num asc");
-
-		$newsql ->bindparam(':genre_value', $genre_param);
-		$newsql ->execute();
-		$small_records = $newsql->fetchAll(PDO::FETCH_ASSOC);
-
-	} catch(PDOException $e) {
-		echo $e->getMessage();
-		die();
-	}
+	// try {
+	// 	// DBへ接続
+	// 	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
+	//
+	// 	$sql = "SELECT * FROM big_questions;";
+	// 	$res = $dbh->query($sql);
+	// 	$big_records = $res->fetchAll(PDO::FETCH_ASSOC);
+	//
+	// 	$newsql = $dbh->prepare("SELECT big_questions_id, question_num, question FROM small_questions where genre_value = :genre_value order by big_questions_id asc, question_num asc");
+	//
+	// 	$newsql ->bindparam(':genre_value', $genre_param);
+	// 	$newsql ->execute();
+	// 	$small_records = $newsql->fetchAll(PDO::FETCH_ASSOC);
+	//
+	// } catch(PDOException $e) {
+	// 	echo $e->getMessage();
+	// 	die();
+	// }
 
 ?>
 

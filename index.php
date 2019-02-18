@@ -21,6 +21,7 @@ $sql = null;
 $res = null;
 $dbh = null;
 
+//ジャンルテーブルのデータを取得する機能
 try {
 	// DBへ接続
 	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
