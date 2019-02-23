@@ -25,18 +25,17 @@ function answerGetRecord($genre_param){
     	$small_bind_array = array('genre_value' => $genre_param);
     	$small_records = $dbh->getRecord($small_sql,$small_bind_array);
     	// var_dump($small_records);
-    } catch (Exception $e) {
-    	echo "small:".$e->getMessage();
+        } catch (Exception $e) {
+        	echo "small:".$e->getMessage();
+        }
+        $records = [$big_records,$small_records];
+        return $records;
     }
-    $records = [$big_records,$small_records];
-    return $records;
-}
 
 
 
-    // if (isset($_POST["save"])) {
-    //↑これはviewかコントローラー側
-
+// if (isset($_POST["save"])) {
+//↑これはviewかコントローラー側
 //     function formUserAnswer(){
 //         $results=$_POST["result"];
 //         $user_answer_array = $_POST["user_answer"];

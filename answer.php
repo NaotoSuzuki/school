@@ -92,8 +92,6 @@ $small_records = $records[1];
                 :result,
                 now()
             )";
-
-
             foreach ($answer_datas as $answer_data){
                 // $stmt = $dbh->prepare();
                 $param_array= null;
