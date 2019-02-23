@@ -1,53 +1,31 @@
 <?php
-	require_once("pdo_class.php");
-	session_start();
-	ini_set(‘display_errors’, 1);
-	$genre_param = $_GET['name'];
+session_start();
+require_once("pdo_class.php");
+require_once("question_controller.php");
 
-$dbh = new PdoClass();
-try {
-	$big_sql = "SELECT * FROM big_questions";
-	$big_bind_array = [];
-	$big_records=$dbh->getRecord($big_sql,$big_bind_array);
-	// var_dump($big_records);
-} catch (Exception $e) {
-	echo "big:".$e->getMessage();
+$genre_param = $_GET['name'];
+
+$records=questionInit($genre_param);
+$big_records = $records[0];
+$small_records = $records[1];
+
+foreach($small_records as $record_value){
+	$big_que=$record_value["big_questions_id"];
+	$big_q=$record_value["big_question"];
+	$small_q=$record_value["question"];
+	$questions1[$big_que]=["big_question"=>$big_q];
+	$questions2[$big_que][]="$small_q";
 }
 
-try {
-	$small_sql = "SELECT big_questions_id, question_num, question FROM small_questions where genre_value = :genre_value order by big_questions_id asc, question_num asc";
-	$small_bind_array = array('genre_value' => $genre_param);
-	$small_records = $dbh->getRecord($small_sql,$small_bind_array);
-	// var_dump($small_records);
-} catch (Exception $e) {
-	echo "small:".$e->getMessage();
+for($i=1; $i<=3; $i++ ){
+	$questions[$i]=$questions1[$i];
+	$questions[$i]["questions"]=$questions2[$i];
 }
-$dbh->closePDO;
-	//small_questionsテーブルを持ってきてるやつ
 
-	// try {
-	// 	// DBへ接続
-	// 	$dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
-	//
-	// 	$sql = "SELECT * FROM big_questions;";
-	// 	$res = $dbh->query($sql);
-	// 	$big_records = $res->fetchAll(PDO::FETCH_ASSOC);
-	//
-	// 	$newsql = $dbh->prepare("SELECT big_questions_id, question_num, question FROM small_questions where genre_value = :genre_value order by big_questions_id asc, question_num asc");
-	//
-	// 	$newsql ->bindparam(':genre_value', $genre_param);
-	// 	$newsql ->execute();
-	// 	$small_records = $newsql->fetchAll(PDO::FETCH_ASSOC);
-	//
-	// } catch(PDOException $e) {
-	// 	echo $e->getMessage();
-	// 	die();
-	// }
 
 ?>
 
 <HTMl>
-
 	<head>
 		<meta charset="UTF-8">
 		<title>Be.you</title>
@@ -55,34 +33,30 @@ $dbh->closePDO;
 	</head>
 
 	<body>
+
 		<form action="answer.php?name=<?php echo $genre_param ?>" method="post">
 			<p>この問題を解くために必要な知識</p>
 			<ul>
 				<li>文型</li>
 				<li>疑問系</li>
 			</ul>
-			<?php foreach ($big_records as $big_value):?>
-				<?php echo  $big_value[id].$big_value[question] ?>
-				<br>
-				<br>
-					<?php foreach($small_records as $small_value): ?>
-						<?php print_r($small_value) ?>
+
+			<?php foreach($questions as $key => $bigQ_record) :?>
+                <div class="answer">
+                <?php $count=count($bigQ_record["questions"]) ?>
+                <?php $trueCount=$count-1 ?>
+                <?php echo $key.".".$bigQ_record["big_question"] ?><br>
+                    <?php for($i=0; $i<=$trueCount; $i++) :?>
+                        <?php $num=$i+1 ?>
+                        <?php $user_answer = $num.$bigQ_record["questions"][$i] ?>
+                        <?php echo "(".$num.")".$bigQ_record["questions"][$i] ?><br>
+						<input type="text" name="small_answers[<?php echo $key ?>][<?php echo $num ?>]"></input>
 						<br>
-						<?php if($big_value[id]==$small_value[big_questions_id]): ?>
-							<?php echo  $small_value[question_num].$small_value[question] ?>
-							<?php $big_num=$big_value[id] ?>
-							<?php $question_num=$small_value[question_num] ?>
-							<br>
-							<input type="text" name="small_answers[<?php echo $big_num ?>][<?php echo $question_num ?>]"></input>
-							<br>
-
-						<?php endif ?>
-					<?php endforeach ?>
+					<?php endfor ?>
 					<br>
 					<br>
-			<?php endforeach ?>
-
-
+                </div>
+            <?php endforeach ?>
 			<input type="submit" name="" value="答え合わせをする" />
 
 		</form>
