@@ -72,7 +72,7 @@ $small_records = $records[1];
 
             //配列をinsert文にバインド
             foreach ($answer_datas as $answer_data){
-                $stmt = $dbh->prepare();
+                // $stmt = $dbh->prepare();
                 $param_array= null;
                 $param_array = array(
                     "user_id" => $user_id,
