@@ -82,6 +82,19 @@ $small_records = $records[1];
                     "user_answer" => $answer_data["user_answer"],
                     "result" => $answer_data["result"],
                 );
+
+                $big_ID=$answer_data["big_questions_id"];
+                $question_num=$answer_data["question_num"];
+                $user_answer=$answer_data["user_answer"];
+                $result=$answer_data["result"];
+
+                // $stmt->bindParam(":user_id", $user_id);
+                $stmt->bindParam(":genre_value", $genre_param);
+                $stmt->bindParam(":big_questions_id", $big_ID);
+                $stmt->bindParam(":question_num", $question_num);
+                $stmt->bindParam(":user_answer", $user_answer);
+                $stmt->bindParam(":result", $result);
+                $stmt->execute();
                 //sql実行
                 $dbh->insertRecord($answer_sql,$param_array);
             }
