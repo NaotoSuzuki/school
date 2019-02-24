@@ -6,6 +6,7 @@ class PdoClass{
 
     private $dbh;
     private $sql;
+
     public function __construct(){
         $user = "test";
         $pass = "test";
@@ -64,10 +65,6 @@ class PdoClass{
             throw new PDOException($e, 1);
         }
     }
-
-
-
-
 
 }
 
