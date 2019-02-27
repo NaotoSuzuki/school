@@ -1,6 +1,7 @@
-
 <?php
 require_once("pdo_class.php");
+require_once("answer_controller.php");
+
 
 function answerGetRecord($genre_param){
     $dbh = new PdoClass();
@@ -31,12 +32,13 @@ function answerGetRecord($genre_param){
     }
     $records = [$big_records,$small_records];
     return $records;
+
 }
 
-//function.phpのformUserResultから$answer_datasを受け取る必要がある
-function insertUserAnser($user_datas){
+//PdoClassを利用した形に書き直さねば
+function insertUserAnwser($a){
     try {
-        $pdo = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
+         $pdo = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
         $answer_sql = "INSERT INTO users_answer (
             user_id,
             genre_value,
@@ -54,25 +56,13 @@ function insertUserAnser($user_datas){
             :result,
             now()
         )";
-        foreach ($answer_datas as $answer_data){
-            // $stmt = $dbh->prepare();
-            // $answer_bind_array = null;
-            // $answer_bind_array = array(
-            //     "user_id" => $user_id,
-            //     "genre_value" => $genre_param,
-            //     "big_questions_id" => $answer_data["big_questions_id"],
-            //     "question_num" => $answer_data["question_num"],
-            //     "user_answer" => $answer_data["user_answer"],
-            //     "result" => $answer_data["result"],
-            // );
-        $stmt=$pdo->prepare($answer_sql);
-        // $stmt->bindParam($answer_bind_array);
-        // var_dump($answer_sql);
-        $big_ID=$answer_data["big_questions_id"];
+
+        foreach ($a as $answer_data){
+            $stmt=$pdo->prepare($answer_sql);
+            $big_ID=$answer_data["big_questions_id"];
             $question_num=$answer_data["question_num"];
             $user_answer=$answer_data["user_answer"];
             $result=$answer_data["result"];
-
             $stmt->bindParam(":user_id", $user_id);
             $stmt->bindParam(":genre_value", $genre_param);
             $stmt->bindParam(":big_questions_id", $big_ID);
