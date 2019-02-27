@@ -1,9 +1,9 @@
 <?php
     session_start();
-    require ("pdo_class.php");
-    require ("answer_controller.php");
-    require ("answer_model.php");
-    require ("function.php");
+    require ("../pdo_class.php");
+    require ("../controller/answer_controller.php");
+    require ("../model/answer_model.php");
+    require ("../function.php");
     $user_id=$_SESSION["ID"];
     $genre_param = $_GET['name'];
     $small_answers=$_POST["small_answers"];
@@ -31,7 +31,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Be.you</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="../style.css">
 	</head>
 
 	<body>

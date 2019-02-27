@@ -56,8 +56,8 @@ if (isset($_POST["login"])) {
                     }
                     $_SESSION["NAME"] = $row['name'];//セッション変数にユーザー名を代入
                     $_SESSION["ID"] = $row['id'];
-            
-                    header("Location: index.php");  // メイン画面へ遷移
+
+                    header("Location: view/index.php");  // メイン画面へ遷移
 
                     exit();  // 処理終了
 

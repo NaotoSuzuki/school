@@ -2,21 +2,11 @@
 session_start();
 // エラー表示なし
 ini_set('display_errors', 1);
-// require_once("pdo_class.php");
 
-// $pdo=new mysqlClass();
-
-// var_dump($_SESSION);
-// var_dump($_SESSION["NAME"]);
-//
 if (!isset($_SESSION["NAME"])) {
     header("Location: Logout.php");
     exit;
 }
-
-// $grammerIndicate=$pdo->setGenreName();
-// var_dump($grammerIndicate);
-
 $sql = null;
 $res = null;
 $dbh = null;
@@ -44,7 +34,7 @@ try {
     <head>
       <meta charset="utf-8">
        <title>Be.you</title>
-       <link rel="stylesheet" type="text/css" href="style.css">
+       <link rel="stylesheet" type="text/css" href="../style.css">
    </head>
 
    <body>

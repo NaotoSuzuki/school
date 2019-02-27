@@ -1,6 +1,6 @@
 <?php
 require_once("pdo_class.php");
-require_once("answer_controller.php");
+require_once("controller/answer_controller.php");
 $results=$_POST["result"];
 $small_answers=$_POST["small_answers"];
 $genre_param = $_GET['name'];

@@ -1,5 +1,5 @@
 <?php
-require_once("pdo_class.php");
+require_once("../pdo_class.php");
 
 function QuestiongetRecord($genre_param){
     $dbh = new PdoClass();

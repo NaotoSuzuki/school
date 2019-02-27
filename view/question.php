@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	require_once("pdo_class.php");
-	require_once("question_controller.php");
-	require ("function.php");
+	require_once("../pdo_class.php");
+	require_once("../controller/question_controller.php");
+	require_once("../function.php");
 
 	$genre_param = $_GET['name'];
 
@@ -19,7 +19,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Be.you</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="../style.css">
 	</head>
 
 	<body>

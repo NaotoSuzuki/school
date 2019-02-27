@@ -52,7 +52,7 @@ $signUpMessage = "";
     } else if($_POST["password"] != $_POST["password2"]) {
         $errorMessage = 'パスワードに誤りがあります。';
     }
-}
+
 ?>
 
 <!doctype html>
