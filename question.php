@@ -11,18 +11,7 @@
 	$big_records = $records[0];
 	$small_records = $records[1];
 
-	foreach($small_records as $record_value){
-		$big_que=$record_value["big_questions_id"];
-		$big_q=$record_value["big_question"];
-		$small_q=$record_value["question"];
-		$questions1[$big_que]=["big_question"=>$big_q];
-		$questions2[$big_que][]="$small_q";
-	}
-
-	for($i=1; $i<=3; $i++ ){
-		$questions[$i]=$questions1[$i];
-		$questions[$i]["questions"]=$questions2[$i];
-	}
+	$questions=formQuestion($small_records);
 ?>
 
 <HTMl>

@@ -59,6 +59,8 @@ function insertUserAnwser($a){
 
         foreach ($a as $answer_data){
             $stmt=$pdo->prepare($answer_sql);
+            $user_id=$answer_data["user_id"];
+            $genre_param=$answer_data["genre_value"];
             $big_ID=$answer_data["big_questions_id"];
             $question_num=$answer_data["question_num"];
             $user_answer=$answer_data["user_answer"];
