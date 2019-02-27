@@ -2,6 +2,7 @@
 	session_start();
 	require_once("pdo_class.php");
 	require_once("question_controller.php");
+	require ("function.php");
 
 	$genre_param = $_GET['name'];
 
