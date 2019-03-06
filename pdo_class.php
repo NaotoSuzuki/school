@@ -64,6 +64,28 @@ class PdoClass{
         }
     }
 
+    //blog記事取得
+    public function getPosts(){
+        try{
+            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->setSql($sql);
+            $stmt = $this->dbh->prepare($this->sql);
+
+            foreach ($param_array as $key => &$value) {
+                $stmt ->bindparam(":".$key, $value);
+            }
+            $stmt ->execute();
+            // $this->closePDO();
+        }catch(Exception $e){
+            throw new PDOException($e, 1);
+        }
+
+    }
+
 }
+
+
+
+
 
 ?>

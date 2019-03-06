@@ -38,6 +38,7 @@
         <form action="" name="" method="post">
 
             <?php foreach($questions as $key => $bigQ_record) :?>
+
                 <div class="answer">
                 <?php $count=count($bigQ_record["questions"]) ?>
                 <?php $trueCount=$count-1 ?>

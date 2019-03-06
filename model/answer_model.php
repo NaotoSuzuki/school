@@ -54,9 +54,11 @@ function insertUserAnwser($a){
             :question_num,
             :user_answer,
             :result,
-            now()
+            :created
         )";
 
+        $date = new DateTime();
+        $date = $date->format('Y-m-d H:i:s');
         foreach ($a as $answer_data){
             $stmt=$pdo->prepare($answer_sql);
             $user_id=$answer_data["user_id"];
@@ -71,6 +73,7 @@ function insertUserAnwser($a){
             $stmt->bindParam(":question_num", $question_num);
             $stmt->bindParam(":user_answer", $user_answer);
             $stmt->bindParam(":result", $result);
+            $stmt->bindParam(":created", $date);
             $stmt->execute();
             // $dbh->insertRecord($answer_sql,$answer_bind_array);
         }
