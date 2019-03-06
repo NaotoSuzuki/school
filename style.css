@@ -50,3 +50,22 @@ h1{text-align: center;
 .answer p{
     margin: 0px;
 }
+
+/* study_hist.php */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+  align-content: space-around;
+}
+
+.item{
+  width:250px;
+  height:250px;
+  margin:25;
+  padding: 25;
+  text-align: center;
+  line-height: 250px;
+  border:solid;
+}

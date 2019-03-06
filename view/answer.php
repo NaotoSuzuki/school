@@ -1,9 +1,8 @@
 <?php
     session_start();
-    require ("../pdo_class.php");
-    require ("../controller/answer_controller.php");
-    require ("../model/answer_model.php");
-    require ("../function.php");
+    require("../controller/answer_controller.php");
+    require("../model/answer_model.php");
+    require("../function.php");
     $user_id=$_SESSION["ID"];
     $genre_param = $_GET['name'];
     $small_answers=$_POST["small_answers"];

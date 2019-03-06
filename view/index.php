@@ -3,6 +3,7 @@ session_start();
 // エラー表示なし
 ini_set('display_errors', 1);
 
+
 if (!isset($_SESSION["NAME"])) {
     header("Location: Logout.php");
     exit;
@@ -44,7 +45,9 @@ try {
         </header>
 
         <div class="options">
+            <a href="study_hist.php">
             <p>学習の進捗を確認する</p>
+            </a>
             <p>成績を確認する</p><!-- 回答した問題の一覧を表示する studied_questions.php-->
             <a href="Logout.php">ログアウト</a>
 

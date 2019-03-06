@@ -1,6 +1,8 @@
 <?php
 require_once("pdo_class.php");
 require_once("controller/answer_controller.php");
+
+
 $results=$_POST["result"];
 $small_answers=$_POST["small_answers"];
 $genre_param = $_GET['name'];
@@ -11,6 +13,7 @@ $records=answerInit($genre_param);
 $big_records = $records[0];
 $small_records = $records[1];
 
+//DBからの問題データを表示用の配列を生成
 function formQuestion($small_records){
     foreach($small_records as $record_value){
 		$big_que=$record_value["big_questions_id"];
