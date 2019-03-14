@@ -91,3 +91,28 @@ function formUserResult(){
         }
     }
 }
+
+
+//study_hist_detaill用に配列を生成
+// function getStudyHistDetail(){
+//     foreach($hist_arrays as $hist_array){
+//         if($hist_code == $hist_array["created"]){
+//             $big_que=$hist_array["big_questions_id"];
+//             $big_q=$hist_array["big_question"];
+//             $small_q=$hist_array["question"];
+//             $small_a=$hist_array["answer"];
+//             $small_y=$hist_array["user_answer"];
+//             $questions1[$big_que]=["big_question"=>$big_q];
+//             $questions2[$big_que][]="$small_q";
+//             $answers[$big_que][]="$small_a";
+//             $user_answer[$big_que][]="$small_y";
+//
+//             for($i=1; $i<=3; $i++ ){
+//                 $questions[$i]=$questions1[$i];
+//                 $questions[$i]["questions"]=$questions2[$i];
+//                 $questions[$i]["answers"]=$answers[$i];
+//                 $questions[$i]["user_answer"]=$answers[$i];
+//             }
+//         }
+//     }
+// }

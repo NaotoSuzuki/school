@@ -4,6 +4,7 @@
     require_once("../controller/study_hist_controller.php");
 
 
+
     function getStudyHist($user_id){
         $dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -17,10 +18,14 @@
                 users_answer.user_answer,
                 users_answer.result,
                 users_answer.created,
-                genres.genre
+                genres.genre,
+                small_questions.answer,
+                big_questions.question
                 from users_answer
                 join genres on users_answer.genre_value = genres.genre_value
-                where :user_id
+                join small_questions on users_answer.genre_value = small_questions.genre_value
+                join big_questions on users_answer.big_questions_id = big_questions.id
+                where users_answer.user_id = :user_id
                 order by created desc";
 
                 $stmt=$dbh->prepare($sql);

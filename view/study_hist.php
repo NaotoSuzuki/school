@@ -1,7 +1,5 @@
 <?php
     session_start();
-    $user_id=$_SESSION["ID"];
-    echo $user_id;
     require_once("../controller/study_hist_controller.php");
     require_once("../function.php");
     $hist_arrays=histInit($user_id);
@@ -21,12 +19,14 @@
 
         <div class="container">
         <!--以下の処理はfunctoinで行って、結果を配列に入れてviewで展開する感じにしたい-->
+
         <?php $time=0 ?>
         <?php foreach($hist_arrays as $hist_array): ?>
             <?php if($time==0 || $time !== $hist_array["created"]) :?>
                 <div class="item">
-                    <p><?php echo $hist_array["genre"]."　".$hist_array["created"] ?></p>
-
+                     <a href="study_hist_detail.php?name=<?php  echo $hist_array["created"]; ?>">
+                                <p><?php echo $hist_array["genre"]."　".$hist_array["created"] ?></p>
+                    </a>
                 </div>
             <?php endif ?>
             <?php $time= $hist_array["created"]?>
