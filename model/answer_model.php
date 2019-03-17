@@ -35,6 +35,43 @@ function answerGetRecord($genre_param){
 
 }
 
+
+//答え履歴詳細
+// function histAnswerGetRecord($genre_param){
+//     $dbh = new PdoClass();
+//
+//     try {
+//     	$big_sql = "SELECT * FROM big_questions";
+//     	$big_bind_array = [];
+//     	$big_records=$dbh->getRecord($big_sql,$big_bind_array);
+//     	// var_dump($big_records);
+//     } catch (Exception $e) {
+//     	echo "big:".$e->getMessage();
+//     }
+//     try {
+//     	$small_sql = "SELECT
+//             big_questions.question AS big_question,
+//             small_questions.big_questions_id,
+//             users_answer.question_num,
+//             small_questions.question,
+//             small_questions.answer,
+//             users_answer.user_answer
+//             FROM users_answer
+//             inner join big_questions on users_answer.big_questions_id = big_questions.id
+//             inner join small_questions on users_answer.question_num = small_question.question_num
+//             where  genre_value = :genre_value
+//             order by big_questions_id asc, question_num asc";
+//     	$small_bind_array = array('genre_value' => $genre_param);
+//     	$small_records = $dbh->getRecord($small_sql,$small_bind_array);
+//     	// var_dump($small_records);
+//     } catch (Exception $e) {
+//     	echo "small:".$e->getMessage();
+//     }
+//     $records = [$big_records,$small_records];
+//     return $records;
+//
+// }
+
 //PdoClassを利用した形に書き直さねば
 function insertUserAnwser($a){
     try {

@@ -1,17 +1,16 @@
 <?php
 require_once("pdo_class.php");
 require_once("controller/answer_controller.php");
-
-
 $results=$_POST["result"];
 $small_answers=$_POST["small_answers"];
 $genre_param = $_GET['name'];
 // var_dump($_SESSION["ID"]);
 $user_id=$_SESSION["ID"];
-
 $records=answerInit($genre_param);
 $big_records = $records[0];
 $small_records = $records[1];
+
+
 
 //DBからの問題データを表示用の配列を生成
 function formQuestion($small_records){
@@ -33,6 +32,7 @@ function formQuestion($small_records){
 
 
     //ユーザーの回答内容を含めて、answer.phpで問題と正答を表示させる
+
 function formUser($small_records){
     foreach($small_records as $record_value){
         $big_que=$record_value["big_questions_id"];
@@ -48,7 +48,6 @@ function formUser($small_records){
         $questions[$i]["questions"]=$questions2[$i];
         $questions[$i]["answers"]=$answers[$i];
     }
-
     return $questions;
 }
 
