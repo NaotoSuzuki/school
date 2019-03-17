@@ -76,40 +76,6 @@
            return $hist_detail_arrays;
     }
 
-
-
-
-    // function getQuestionCode($genre_param){
-    //     $dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
-    //     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //     try{
-    //
-    //         $sql="SELECT
-    //             users_answer.genre_value,
-    //             users_answer.big_questions_id,
-    //             users_answer.question_num,
-    //             users_answer.user_answer,
-    //             users_answer.result,
-    //             users_answer.created
-    //             from users_answer
-    //             where  users_answer.user_id = :user_id
-    //             and users_answer.created = :created
-    //             order by big_questions_id asc, question_num asc";
-    //
-    //             $stmt=$dbh->prepare($sql);
-    //             $stmt->bindParam(":user_id",$user_id);
-    //             $stmt->bindParam(":created",$created);
-    //             $stmt->execute();
-    //             $hist_detail_arrays = $stmt->fetchAll();
-    //         }
-    //         catch(PDOException $e) {
-    //            echo $e->getMessage();
-    //            die();
-    //        }
-    //        return $hist_detail_arrays;
-    // }
-
-
     function HistGetStudyDetail($user_id, $created, $genre_value){
         $dbh = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

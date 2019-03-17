@@ -91,6 +91,46 @@ function formUserResult(){
     }
 }
 
+//回答履歴表示用のgenre_valueを返す
+function hist_genre($hist_detail_arrays){
+foreach($hist_detail_arrays as $hist_detail_array){
+        $big_que=$hist_detail_array["big_questions_id"];
+        $big_q=$hist_detail_array["question_num"];
+        $small_a=$hist_detail_array["answer"];
+        $small_y=$hist_detail_array["user_answer"];
+        $questions1[$big_que]=["big_question"=>$big_q];
+        $questions2[$big_que][]="$small_q";
+        $answers[$big_que][]="$small_a";
+        $user_answer[$big_que][]="$small_y";
+    }
+    return $hist_detail_array["genre_value"];
+}
+
+function HistIndicateDataInit($hist_indicate_datas){
+    foreach ($hist_indicate_datas as $hist_indicate_data) {
+        $big_que=$hist_indicate_data["big_questions_id"];
+        $big_q=$hist_indicate_data["big_question"];
+        $small_q = $hist_indicate_data["small_question"];
+        $small_a=$hist_indicate_data["answer"];
+        $user_a=$hist_indicate_data["user_answer"];
+        $user_r=$hist_indicate_data["result"];
+        $questions1[$big_que]=["big_question"=>$big_q];
+        $questions2[$big_que][]=$small_q;
+        $answers[$big_que][]=$small_a;
+        $user_answers[$big_que][]=$user_a;
+        $user_results[$big_que][]=$user_r;
+
+    }
+    for($i=1; $i<=3; $i++ ){
+        $hist_indicates[$i]=$questions1[$i];
+        $hist_indicates[$i]["questions"]=$questions2[$i];
+        $hist_indicates[$i]["answers"]=$answers[$i];
+        $hist_indicates[$i]["user_answers"]=$user_answers[$i];
+        $hist_indicates[$i]["user_result"]=$user_results[$i];
+    }
+    return $hist_indicates;
+}
+
 
 //study_hist_detaill用に配列を生成
 // function getStudyHistDetail(){
