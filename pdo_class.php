@@ -24,6 +24,7 @@ class PdoClass{
   * $sql: string
   * $param_array: array(string =>string)
   * retrun array(array(string =>string))
+  *sql文とバインドしたい値の配列を受け取り、selectの結果を返す
   */
     public function getRecord($sql,$param_array){
         try{
@@ -62,24 +63,6 @@ class PdoClass{
         }catch(Exception $e){
             throw new PDOException($e, 1);
         }
-    }
-
-    //blog記事取得
-    public function getPosts(){
-        try{
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->setSql($sql);
-            $stmt = $this->dbh->prepare($this->sql);
-
-            foreach ($param_array as $key => &$value) {
-                $stmt ->bindparam(":".$key, $value);
-            }
-            $stmt ->execute();
-            // $this->closePDO();
-        }catch(Exception $e){
-            throw new PDOException($e, 1);
-        }
-
     }
 
 }
