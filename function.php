@@ -1,5 +1,9 @@
 <?php
 
+function h($s) {
+  return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+}
+
 //DBからの問題データを表示用の配列を生成
 function formQuestion($small_records){
     foreach($small_records as $record_value){

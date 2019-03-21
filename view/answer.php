@@ -14,7 +14,7 @@
     $records = answerInit($genre_param);
     $big_records  =  $records[0];
     $small_records  =  $records[1];
-    
+
     //ユーザーの回答と少問題のデータを表示用の配列に生成
     $questions  =  formUserAnswerAndQuestion($small_records);
 
@@ -48,7 +48,7 @@
                             <?php $roop_answers[] = ["big_questions_id" => $key, "question_num" => $num,"user_answer" => $user_answer]?>
                             <?php echo "(".$num.")".$bigQ_record["questions"][$i] ?><br>
                             <?php echo "答え".$bigQ_record["answers"][$i] ?>
-                            <p><?php echo"あなたの答え: ".$small_answers[$key][$num] ?></p>
+                            <p><?php echo"あなたの答え: ".h($small_answers[$key][$num]) ?></p>
                             <input type = "hidden" name = "user_answer[<?php echo $key ?>][<?php echo $num ?>]" value = "<?php echo $small_answers[$key][$num] ?>">
                             <input type = "checkbox" name = "result[<?php echo $key ?>][<?php echo $num ?>]" value = "1">正解した！</input><br>
                             <input type = "checkbox" name = "result[<?php echo $key?>][<?php echo $num ?>]" value = "0">間違えた！</input><br>
