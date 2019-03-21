@@ -9,7 +9,7 @@ function QuestiongetRecord($genre_param){
     	$big_bind_array = [];
     	$big_records = $dbh->getRecord($big_sql,$big_bind_array);
     } catch (Exception $e) {
-    	echo "big:".$e->getMessage();
+        echo "big:".$e->getMessage();
     }
     try {
         $small_sql = "SELECT
