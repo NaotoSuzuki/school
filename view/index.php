@@ -33,6 +33,7 @@ $lessons = getIndexIndicate();
 			  <a href="grammer.php?name=<?php echo $genre=$values['genre_value']; ?>">
 				<?php echo $genre = $values['genre']; ?>
 			  </a>
+                  
 			</div>
 			<?php endforeach?>
         </div>

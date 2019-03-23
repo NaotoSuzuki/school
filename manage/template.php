@@ -8,7 +8,6 @@
 
         <h1><%PAGETITLE></h1>
 
-        <h2>記事本文</h2>
         <%PAGECONTENTS>
 
     </body>

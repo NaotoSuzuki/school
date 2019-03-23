@@ -24,8 +24,7 @@
                         <a href="explain.php?name=<?php echo $genre_param;?>">解説を読む</a>
                     </div>
                 </div>
-                <?php break; ?>>
-            <?php endif ?>
+                <?php endif ?>
         <?php endforeach ?>
         <div class="navigater"><a href="index.php">文法一覧に戻る</a></div>
     </body>

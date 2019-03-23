@@ -39,7 +39,7 @@ function answerGetRecord($genre_param){
 //PdoClassを利用した形に書き直さねば
 function insertUserAnwser($answer_datas){
     try {
-         $pdo = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
+        $pdo = new PDO("mysql:host=localhost; dbname=beyou; charset=utf8", 'test', 'test');
         $answer_sql = "INSERT INTO users_answer (
             user_id,
             genre_value,
@@ -59,7 +59,7 @@ function insertUserAnwser($answer_datas){
         )";
 
         $date = new DateTime();
-        $date = $date->format('Y-m-d H:i:s');
+        $date->format('Y-m-d H:i:s');
         foreach ($answer_datas as $answer_data){
             $stmt=$pdo->prepare($answer_sql);
             $user_id=$answer_data["user_id"];

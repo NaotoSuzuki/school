@@ -31,7 +31,7 @@
                 $stmt=$dbh->prepare($sql);
                 $stmt->bindParam(":user_id",$user_id);
                 $stmt->execute();
-                $hist_array = $stmt->fetchAll();
+                $hist_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
             catch(PDOException $e) {
                echo $e->getMessage();
